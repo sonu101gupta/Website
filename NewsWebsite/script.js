@@ -12,6 +12,7 @@ const options = [
   "science",
   "sports",
   "technology",
+  "lifestyle"
 ];
 
 //100 requests per day
