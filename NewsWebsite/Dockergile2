@@ -1,0 +1,77 @@
+FROM ubuntu
+COPY . /home/main
+
+base image
+working directory 
+install dependencies
+copy application files
+expose the ports
+define runtime commands
+
+#base images can be anything
+
+FROM node:14
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "app.js"]
+CMD ["npm","start"]
+
+
+# In every language there should be an Entry point of the application 
+#It would be easier to test your application in the runtime environment where people can easily understand and get the knowledge based ont he thne things which are not only usefule and th
+t
+
+
+#Single Stage Docker files
+
+FROM # base Imag
+WORKDIR # entry point of the application
+COPY #copy package*.json file in the system
+RUN #Commands to install the dependencies
+COPY .. copy all the files in the image#
+EXPOSE #expose the desirable port where u want to run the application 
+CMD command to run the application
+
+#Multi Stage Docker Files
+
+
+# Stage 1: Build stage
+FROM node:14 AS build
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json files to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --production
+
+# Copy the rest of the application code
+COPY . .
+
+# Stage 2: Final stage
+FROM gcr.io/distroless/nodejs:14
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy files from the build stage
+COPY --from=build /usr/src/app .
+
+# Expose port 3000 (adjust as needed)
+EXPOSE 3000
+
+# Command to run the application
+CMD ["node", "app.js"]
+
+
