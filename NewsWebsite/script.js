@@ -44,7 +44,7 @@ const getNews = async () => {
   container.innerHTML = "";
   let response = await fetch(requestURL);
   if (!response.ok) {
-    alert("Data unavailable at the moment. Please try again later");
+    alert("Data unavailable at the moment. Please try again later, Thanks for visiting");
     return false;
   }
   let data = await response.json();
